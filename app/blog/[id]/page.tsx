@@ -9,6 +9,12 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id: id,
+  }));
+}
+
 const blogPosts = {
   1: {
     id: 1,
