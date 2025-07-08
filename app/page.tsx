@@ -115,7 +115,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="#" className="text-slate-300 hover:text-emerald-400 transition-colors">Home</Link>
               <Link href="#" className="text-slate-300 hover:text-emerald-400 transition-colors">Categories</Link>
-              <Link href="#" className="text-slate-300 hover:text-emerald-400 transition-colors">About</Link>
+              <Link href="/about" className="text-slate-300 hover:text-emerald-400 transition-colors">About</Link>
               <Link href="/contact" className="text-slate-300 hover:text-emerald-400 transition-colors">Contact</Link>
             </nav>
             <Button className="bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white font-medium">
