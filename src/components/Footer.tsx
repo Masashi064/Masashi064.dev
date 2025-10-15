@@ -10,15 +10,9 @@ export default function Footer() {
     { icon: Github, href: 'https://github.com/Masashi064', label: 'GitHub' },
     // Example if you want to enable later:
     // { icon: Linkedin, href: 'https://linkedin.com/in/your-id', label: 'LinkedIn' },
-    // { icon: Twitter, href: 'https://x.com/your-id', label: 'Twitter' },
-    { icon: Facebook, href: 'https://www.facebook.com/saisho.masashi/', label: 'Facebook', },
-    {
-      // Launches default email app
-      icon: Mail,
-      href:
-        'mailto:m.kawahara064@gmail.com?subject=Hello%20Masashi&body=Hi%20Masashi%2C',
-      label: 'Email',
-    },
+     { icon: Twitter, href: 'https://x.com/@kamonohashisg', label: 'Twitter' },
+    //{ icon: Facebook, href: 'https://www.facebook.com/saisho.masashi/', label: 'Facebook', },
+    //{ icon: Mail, href: '#contact', label: 'Email' },
     //{
       // LINE official or personal ID
       //iconImg: 'https://cdn.simpleicons.org/line',
