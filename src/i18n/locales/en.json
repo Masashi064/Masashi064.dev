@@ -9,7 +9,7 @@
     "greeting": "Hello, I'm",
     "name": "Masashi",
     "title": "Full Stack Developer & Creative Designer",
-    "description": "Crafting exceptional digital experiences with modern technologies. Specialized in React, TypeScript, and innovative web solutions.",
+    "description": "Full-stack developer crafting fast, AI-powered web apps with React/TypeScript, Next.js/Vite, Firebase/Supabase, and OpenAI",
     "cta": "View My Work",
     "contact": "Get in Touch"
   },
@@ -23,7 +23,7 @@
   "about": {
     "title": "About Me",
     "subtitle": "Passionate developer with a focus on creating meaningful digital experiences",
-    "description": "With years of experience in web development, I specialize in building scalable applications using React, TypeScript, and modern web technologies. I'm passionate about clean code, user experience, and continuous learning.",
+    "description": "I build fast, AI-powered web apps with Next.js/Vite, Firebase/Supabase, and OpenAI. Recently I launched sabacan365.com (AI English quizzes from YouTube) and several finance tools like a NISA withdrawal optimizer. I love clean UI, solid data models, and automations with Google Apps Script.",
     "skills": "Skills & Expertise"
   },
   "contact": {

@@ -5,12 +5,18 @@ import { Code, Palette, Zap, Users } from 'lucide-react';
 export default function About() {
   const { t } = useTranslation();
 
+  // assumes { Code, Zap, Palette, Users } are already imported icons
   const skills = [
-    { icon: Code, name: 'Frontend Development', level: 95 },
-    { icon: Zap, name: 'Performance Optimization', level: 90 },
-    { icon: Palette, name: 'UI/UX Design', level: 85 },
-    { icon: Users, name: 'Team Collaboration', level: 92 }
+    { icon: Code,   name: 'Next.js / React',             level: 95 },
+    { icon: Code,   name: 'TypeScript',                  level: 90 },
+    { icon: Palette,name: 'Tailwind CSS / UI',           level: 90 },
+    { icon: Zap,    name: 'Performance Optimization',    level: 90 },
+    { icon: Users,  name: 'Product / Collaboration',     level: 92 },
+    { icon: Code,   name: 'Firebase / Supabase',         level: 85 },
+    { icon: Zap,    name: 'OpenAI API / Prompting',      level: 85 },
+    { icon: Code,   name: 'Google Apps Script',          level: 80 },
   ];
+
 
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -41,7 +47,7 @@ export default function About() {
               {t('about.description')}
             </p>
             <div className="flex flex-wrap gap-3">
-              {['React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Next.js', 'GraphQL', 'PostgreSQL', 'Docker'].map((tech) => (
+              {['React', 'Next.js', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'React Hook Form', 'Firebase', 'Supabase','Cloud Functions','OpenAI API','Google Apps Script'].map((tech) => (
                 <span
                   key={tech}
                   className="px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg font-medium"

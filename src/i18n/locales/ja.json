@@ -9,7 +9,7 @@
     "greeting": "こんにちは、私は",
     "name": "Masashi",
     "title": "フルスタック開発者 & クリエイティブデザイナー",
-    "description": "最新技術で優れたデジタル体験を創造します。React、TypeScript、革新的なWebソリューションを専門としています。",
+    "description": "React／TypeScript、Next.js／Vite、Firebase／Supabase、OpenAI を活用して、高速な AI 対応の Web アプリを開発するフルスタックエンジニア",
     "cta": "作品を見る",
     "contact": "お問い合わせ"
   },
@@ -23,7 +23,7 @@
   "about": {
     "title": "私について",
     "subtitle": "意味のあるデジタル体験の創造に情熱を注ぐ開発者",
-    "description": "長年のWeb開発経験を持ち、React、TypeScript、最新のWeb技術を使用したスケーラブルなアプリケーションの構築を専門としています。クリーンなコード、ユーザー体験、継続的な学習に情熱を注いでいます。",
+    "description": "Next.js/Vite を中心に、Firebase/Supabase と OpenAI を組み合わせた高速なAI対応Webアプリを開発しています。YouTubeから英語クイズを自動生成する sabacan365.com や、NISA売却最適化などの金融ツールを公開。使いやすいUIと堅実なデータ設計、GASによる自動化が得意です。",
     "skills": "スキルと専門知識"
   },
   "contact": {
