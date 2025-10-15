@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "projects": "プロジェクト",
+    "about": "私について",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "greeting": "こんにちは、私は",
+    "name": "Masashi",
+    "title": "フルスタック開発者 & クリエイティブデザイナー",
+    "description": "最新技術で優れたデジタル体験を創造します。React、TypeScript、革新的なWebソリューションを専門としています。",
+    "cta": "作品を見る",
+    "contact": "お問い合わせ"
+  },
+  "projects": {
+    "title": "注目プロジェクト",
+    "subtitle": "最新の作品とクリエイティブなソリューション",
+    "viewProject": "プロジェクトを見る",
+    "liveDemo": "ライブデモ",
+    "sourceCode": "ソースコード"
+  },
+  "about": {
+    "title": "私について",
+    "subtitle": "意味のあるデジタル体験の創造に情熱を注ぐ開発者",
+    "description": "長年のWeb開発経験を持ち、React、TypeScript、最新のWeb技術を使用したスケーラブルなアプリケーションの構築を専門としています。クリーンなコード、ユーザー体験、継続的な学習に情熱を注いでいます。",
+    "skills": "スキルと専門知識"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "次のプロジェクトで一緒に働きましょう",
+    "name": "名前",
+    "email": "メールアドレス",
+    "message": "メッセージ",
+    "send": "送信",
+    "sending": "送信中...",
+    "success": "メッセージが正常に送信されました!",
+    "error": "メッセージの送信に失敗しました。もう一度お試しください。",
+    "namePlaceholder": "お名前",
+    "emailPlaceholder": "your.email@example.com",
+    "messagePlaceholder": "プロジェクトについて教えてください..."
+  },
+  "footer": {
+    "rights": "すべての権利を保有します。",
+    "builtWith": "React、TypeScript、Tailwind CSSで構築"
+  },
+  "theme": {
+    "light": "ライトモード",
+    "dark": "ダークモード"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Masashi",
+    "title": "Full Stack Developer & Creative Designer",
+    "description": "Crafting exceptional digital experiences with modern technologies. Specialized in React, TypeScript, and innovative web solutions.",
+    "cta": "View My Work",
+    "contact": "Get in Touch"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Showcasing my latest work and creative solutions",
+    "viewProject": "View Project",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Passionate developer with a focus on creating meaningful digital experiences",
+    "description": "With years of experience in web development, I specialize in building scalable applications using React, TypeScript, and modern web technologies. I'm passionate about clean code, user experience, and continuous learning.",
+    "skills": "Skills & Expertise"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's collaborate on your next project",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your.email@example.com",
+    "messagePlaceholder": "Tell me about your project..."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with React, TypeScript, and Tailwind CSS"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  }
+}
