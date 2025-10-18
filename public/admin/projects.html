@@ -1,0 +1,481 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Projects.json Editor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+  body { margin: 24px; max-width: 1000px; }
+  h1 { margin: 0 0 8px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0 16px; }
+  button, input[type=file] { font: inherit; padding: 8px 12px; }
+  .muted { opacity: .7; font-size: 12px; }
+  .ok { color: #0a0; }
+  .err { color: #a00; }
+
+  .panel { border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin: 16px 0; }
+  .list { max-height: 280px; overflow: auto; border: 1px solid #eee; padding: 8px; border-radius: 8px; background: #fafafa; }
+  .item { display: grid; grid-template-columns: 72px 1fr auto; gap: 10px; align-items: center; padding: 8px; border-bottom: 1px dashed #eee; }
+  .item:last-child { border-bottom: none; }
+  .thumb { width: 72px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; background: #fff; }
+  .title { font-weight: 600; }
+  .tags { font-size: 12px; opacity: .7; }
+
+  .toggle { margin-top: 4px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-grid > .full { grid-column: 1 / -1; }
+  label { display: block; font-size: 12px; opacity: .8; margin-bottom: 4px; }
+  input[type=text], textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 8px; font: inherit; }
+  textarea { min-height: 80px; resize: vertical; }
+
+  .actions { display: flex; gap: 8px; align-items: center; }
+  .danger { background: #fee2e2; border-color: #fecaca; }
+
+  textarea#ta { width: 100%; height: 36vh; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  dialog { border: none; border-radius: 12px; padding: 0; width: min(720px, 96vw); }
+  .modal { padding: 16px; }
+  .modal header { padding: 12px 16px; border-bottom: 1px solid #eee; font-weight: 600; }
+  .modal main { padding: 16px; }
+  .modal footer { padding: 12px 16px; border-top: 1px solid #eee; display: flex; gap: 8px; justify-content: flex-end; }
+  pre { background: #0a0a0a; color: #e5e7eb; padding: 12px; border-radius: 8px; overflow: auto; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+
+<h1>Projects.json Editor</h1>
+<div class="row">
+  <input type="file" accept="application/json" id="file" />
+  <button id="validate">Validate</button>
+  <button id="save">Save as projects.json</button>
+  <span id="msg" class="muted"></span>
+</div>
+
+<div class="panel">
+  <div class="row" style="justify-content: space-between;">
+    <div>現在の件数: <strong id="count">0</strong></div>
+    <div class="actions">
+      <button id="toggleNew">+ 新しいプロジェクトを追加</button>
+    </div>
+  </div>
+  <div id="list" class="list"></div>
+</div>
+
+<div id="newFormWrap" class="panel" style="display:none;">
+  <h2 style="margin:0 0 12px;">新規プロジェクト</h2>
+  <div class="form-grid">
+    <div class="full">
+      <label>title</label>
+      <input type="text" id="f-title" placeholder="例：Profit Estimator" />
+    </div>
+    <div class="full">
+      <label>description</label>
+      <textarea id="f-desc" placeholder="短い紹介文"></textarea>
+    </div>
+    <div>
+      <label>image</label>
+      <input type="text" id="f-image" placeholder="/assets/profit-estimator.jpg" />
+      <div class="muted">先頭「/」が無い場合は自動で補います</div>
+    </div>
+    <div>
+      <label>tags（カンマ区切り）</label>
+      <input type="text" id="f-tags" placeholder="HTML, CSS, JavaScript" />
+    </div>
+    <div>
+      <label>demoUrl</label>
+      <input type="text" id="f-demo" placeholder="https://profit-estimator.vercel.app/" />
+    </div>
+    <div>
+      <label>githubUrl</label>
+      <input type="text" id="f-github" placeholder="https://github.com/xxxx/profit-estimator" />
+    </div>
+  </div>
+  <div class="row">
+    <button id="add">追加</button>
+    <button id="cancelNew" class="danger">キャンセル</button>
+  </div>
+</div>
+
+<h2 style="margin:16px 0 8px;">Raw JSON</h2>
+<textarea id="ta">[]</textarea>
+
+<!-- 確認モーダル（追加・編集で共用） -->
+<dialog id="confirmModal">
+  <div class="modal">
+    <header id="modalTitle">確認</header>
+    <main>
+      <p class="muted">以下の内容で反映します。よろしければ「確定」してください。</p>
+      <pre><code id="preview"></code></pre>
+    </main>
+    <footer>
+      <button id="confirm">確定</button>
+      <button id="back">戻る</button>
+    </footer>
+  </div>
+</dialog>
+
+<script>
+/* ======= 状態 ======= */
+let data = [];          // ProjectsJson
+let pending = null;     // 確認中のオブジェクト（追加または編集）
+let mode = null;        // 'add' or 'edit'
+let editIndex = -1;     // 編集対象の index
+
+/* ======= DOM ======= */
+const fileInput = document.getElementById('file');
+const ta = document.getElementById('ta');
+const listEl = document.getElementById('list');
+const cnt = document.getElementById('count');
+const msg = document.getElementById('msg');
+
+const toggleNewBtn = document.getElementById('toggleNew');
+const newFormWrap = document.getElementById('newFormWrap');
+const addBtn = document.getElementById('add');
+const cancelNewBtn = document.getElementById('cancelNew');
+
+const fTitle = document.getElementById('f-title');
+const fDesc = document.getElementById('f-desc');
+const fImage = document.getElementById('f-image');
+const fTags  = document.getElementById('f-tags');
+const fDemo  = document.getElementById('f-demo');
+const fGit   = document.getElementById('f-github');
+
+const validateBtn = document.getElementById('validate');
+const saveBtn = document.getElementById('save');
+
+const modal = document.getElementById('confirmModal');
+const modalTitle = document.getElementById('modalTitle');
+const preview = document.getElementById('preview');
+const confirmBtn = document.getElementById('confirm');
+const backBtn = document.getElementById('back');
+
+/* ======= イベント ======= */
+// JSON読み込み
+fileInput.onchange = async (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  try{
+    const text = await f.text();
+    const parsed = parseJsonArray(text);
+    data = parsed;
+    ta.value = pretty(data);
+    renderList();
+    setMsg('JSON を読み込みました', 'ok');
+  }catch(err){
+    setMsg('読み込み失敗: ' + err.message, 'err');
+  }
+};
+
+// Validate
+validateBtn.onclick = ()=>{
+  try{
+    parseAndValidate(ta.value);
+    alert('OK! JSONは有効です。項目数: ' + data.length);
+  }catch(err){
+    alert('不正なJSONです: ' + err.message);
+  }
+};
+
+// Save
+saveBtn.onclick = ()=>{
+  try{
+    const checked = parseAndValidate(ta.value);
+    download('projects.json', pretty(checked));
+  }catch{
+    alert('JSONの形式が正しくありません');
+  }
+};
+
+// 新規フォーム開閉
+toggleNewBtn.onclick = ()=>{
+  newFormWrap.style.display = (newFormWrap.style.display === 'none' || newFormWrap.style.display === '') ? 'block' : 'none';
+};
+
+// 新規キャンセル
+cancelNewBtn.onclick = ()=>{
+  clearNewForm();
+  newFormWrap.style.display = 'none';
+};
+
+// 新規→確認
+addBtn.onclick = ()=>{
+  try{
+    const d = readNewForm(); // throws on invalid
+    // 次ID採番
+    const nextId = getNextId(data);
+    pending = { id: nextId, ...d };
+    mode = 'add';
+    showConfirm(pending);
+  }catch(err){
+    setMsg(err.message, 'err');
+  }
+};
+
+// 確認モーダル
+confirmBtn.onclick = ()=>{
+  if(!pending) return;
+  if(mode === 'add'){
+    data.push(pending);
+    ta.value = pretty(data);
+    renderList();
+    clearNewForm();
+    newFormWrap.style.display = 'none';
+    setMsg(`追加しました（id: ${pending.id}）`, 'ok');
+  }else if(mode === 'edit' && editIndex >= 0){
+    // IDは維持
+    const id = data[editIndex].id;
+    data[editIndex] = { id, ...pending };
+    ta.value = pretty(data);
+    renderList();
+    setMsg(`更新しました（id: ${id}）`, 'ok');
+  }
+  pending = null; mode = null; editIndex = -1;
+  modal.close();
+};
+
+backBtn.onclick = ()=> modal.close();
+
+/* ======= 一覧描画・編集 ======= */
+function renderList(){
+  cnt.textContent = data.length;
+  if(!data.length){
+    listEl.innerHTML = '<div class="muted">（まだありません）</div>';
+    return;
+  }
+  // id昇順
+  const sorted = [...data].sort((a,b)=> (a.id ?? 0) - (b.id ?? 0));
+  listEl.innerHTML = sorted.map(p => itemRow(p)).join('');
+
+  // サムネ onerror フォールバック
+  listEl.querySelectorAll('img.thumb').forEach(img=>{
+    img.onerror = () => { img.src = '/assets/placeholder.jpg'; };
+  });
+
+  // 編集ボタン
+  listEl.querySelectorAll('[data-edit]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const id = Number(btn.getAttribute('data-edit'));
+      const idx = data.findIndex(x => x.id === id);
+      if(idx < 0) return;
+      openEditModal(idx);
+    };
+  });
+}
+
+function itemRow(p){
+  const tags = Array.isArray(p.tags) ? p.tags.join(', ') : '';
+  const img = escapeHtml(p.image || '');
+  return `
+    <div class="item">
+      <img class="thumb" src="${img || '/assets/placeholder.jpg'}" alt="">
+      <div>
+        <div class="title">#${p.id} — ${escapeHtml(p.title || '')}</div>
+        <div class="tags">${escapeHtml(tags)}</div>
+        <div class="muted">
+          <a href="${escapeAttr(p.demoUrl || '#')}" target="_blank" rel="noreferrer">demo</a> ·
+          <a href="${escapeAttr(p.githubUrl || '#')}" target="_blank" rel="noreferrer">github</a>
+        </div>
+      </div>
+      <div class="actions">
+        <button data-edit="${p.id}">編集</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ======= 編集（既存） ======= */
+function openEditModal(index){
+  editIndex = index;
+  const p = data[index];
+  // 編集用の入力セット（新規フォームは使わず、モーダル→確定の流れ）
+  // 既存値を入力として使う
+  const draft = {
+    title: p.title || '',
+    description: p.description || '',
+    image: p.image || '',
+    tags: p.tags || [],
+    demoUrl: p.demoUrl || '',
+    githubUrl: p.githubUrl || ''
+  };
+
+  // 編集モードの pending は「入力欄」と同じ正規化・検証を通すため confirm前に validate
+  // → ここでは一旦下書きを表示して、ユーザーが「確定」する直前にvalidate
+  mode = 'edit';
+
+  // 編集入力UI：簡易にモーダル本文をフォーム表示
+  const formHtml = `
+    <div class="form-grid">
+      <div class="full">
+        <label>title</label>
+        <input type="text" id="e-title" value="${escapeAttr(draft.title)}" />
+      </div>
+      <div class="full">
+        <label>description</label>
+        <textarea id="e-desc">${escapeHtml(draft.description)}</textarea>
+      </div>
+      <div>
+        <label>image</label>
+        <input type="text" id="e-image" value="${escapeAttr(draft.image)}" />
+        <div class="muted">先頭「/」が無い場合は自動で補います</div>
+      </div>
+      <div>
+        <label>tags（カンマ区切り）</label>
+        <input type="text" id="e-tags" value="${escapeAttr(fromTags(draft.tags))}" />
+      </div>
+      <div>
+        <label>demoUrl</label>
+        <input type="text" id="e-demo" value="${escapeAttr(draft.demoUrl)}" />
+      </div>
+      <div>
+        <label>githubUrl</label>
+        <input type="text" id="e-github" value="${escapeAttr(draft.githubUrl)}" />
+      </div>
+    </div>
+  `;
+
+  modalTitle.textContent = `編集：#${p.id}`;
+  preview.textContent = ''; // フォームと重複しないよう空にする
+  const content = modal.querySelector('main');
+  content.innerHTML = formHtml + '<div class="muted" style="margin-top:8px">「確定」でこの内容に更新します。</div>';
+  modal.showModal();
+
+  // 確定ボタンを一時差し替え（編集用挙動）
+  const origConfirm = confirmBtn.onclick;
+  confirmBtn.onclick = ()=>{
+    try{
+      // フォームから読み取り & validate
+      const payload = validateFields({
+        title: getVal('e-title'),
+        description: getVal('e-desc'),
+        image: normalizeImage(getVal('e-image')),
+        tags: toTags(getVal('e-tags')),
+        demoUrl: getVal('e-demo'),
+        githubUrl: getVal('e-github'),
+      });
+      // 反映
+      const id = data[editIndex].id;
+      data[editIndex] = { id, ...payload };
+      ta.value = pretty(data);
+      renderList();
+      setMsg(`更新しました（id: ${id}）`, 'ok');
+      modal.close();
+    }catch(err){
+      alert('入力エラー: ' + err.message);
+    }finally{
+      // confirm を元の動作に戻す
+      confirmBtn.onclick = origConfirm;
+      mode = null; editIndex = -1;
+    }
+  };
+
+  // 戻るボタンで閉じるだけ
+  backBtn.onclick = ()=>{
+    modal.close();
+    confirmBtn.onclick = origConfirm;
+    mode = null; editIndex = -1;
+  };
+}
+
+/* ======= 新規フォーム util ======= */
+function readNewForm(){
+  const payload = {
+    title: fTitle.value.trim(),
+    description: fDesc.value.trim(),
+    image: normalizeImage(fImage.value.trim()),
+    tags: toTags(fTags.value.trim()),
+    demoUrl: fDemo.value.trim(),
+    githubUrl: fGit.value.trim(),
+  };
+  return validateFields(payload);
+}
+function clearNewForm(){
+  [fTitle, fDesc, fImage, fTags, fDemo, fGit].forEach(el => el.value = '');
+}
+
+/* ======= 確認表示（追加用） ======= */
+function showConfirm(obj){
+  modalTitle.textContent = (mode === 'add') ? '追加の確認' : '確認';
+  preview.textContent = pretty(obj);
+  // モーダル本文をプレビュー用に戻す
+  const content = modal.querySelector('main');
+  content.innerHTML = `
+    <p class="muted">以下の内容で反映します。よろしければ「確定」してください。</p>
+    <pre><code id="preview">${escapeHtml(pretty(obj))}</code></pre>
+  `;
+  modal.showModal();
+}
+
+/* ======= 検証/整形 ======= */
+function validateFields(p){
+  must(p.title, 'title');
+  must(p.description, 'description');
+  must(p.image, 'image');
+  must(p.demoUrl, 'demoUrl');
+  must(p.githubUrl, 'githubUrl');
+
+  if(!Array.isArray(p.tags)) throw new Error('tags は配列に変換できませんでした');
+  if(p.demoUrl && !isHttpUrl(p.demoUrl)) throw new Error('demoUrl は http(s):// で始まる必要があります');
+  if(p.githubUrl && !isHttpUrl(p.githubUrl)) throw new Error('githubUrl は http(s):// で始まる必要があります');
+
+  return p;
+}
+
+function parseJsonArray(text){
+  const arr = JSON.parse(text || '[]');
+  if(!Array.isArray(arr)) throw new Error('projects.json は配列である必要があります');
+  return arr;
+}
+
+function parseAndValidate(text){
+  const arr = parseJsonArray(text);
+  arr.forEach((p,i)=>{
+    if(typeof p.id !== 'number') throw new Error(`${i}: id は number`);
+    if(typeof p.title !== 'string' || !p.title) throw new Error(`${i}: title は必須`);
+    if(typeof p.description !== 'string' || !p.description) throw new Error(`${i}: description は必須`);
+    if(typeof p.image !== 'string' || !p.image) throw new Error(`${i}: image は必須`);
+    if(!Array.isArray(p.tags)) throw new Error(`${i}: tags は string[]`);
+    if(typeof p.demoUrl !== 'string' || !p.demoUrl) throw new Error(`${i}: demoUrl は必須`);
+    if(typeof p.githubUrl !== 'string' || !p.githubUrl) throw new Error(`${i}: githubUrl は必須`);
+    if(p.demoUrl && !isHttpUrl(p.demoUrl)) throw new Error(`${i}: demoUrl は http(s):// で始めてください`);
+    if(p.githubUrl && !isHttpUrl(p.githubUrl)) throw new Error(`${i}: githubUrl は http(s):// で始めてください`);
+  });
+  // id 重複チェック
+  const set = new Set();
+  for(const p of arr){
+    if(set.has(p.id)) throw new Error(`id 重複: ${p.id}`);
+    set.add(p.id);
+  }
+  return arr;
+}
+
+function toTags(s){
+  if(!s) return [];
+  return s.split(',').map(t => t.trim()).filter(Boolean);
+}
+function fromTags(arr){
+  if(!Array.isArray(arr)) return '';
+  return arr.join(', ');
+}
+function normalizeImage(p){
+  if(!p) return p;
+  return p.startsWith('/') ? p : ('/' + p);
+}
+function isHttpUrl(u){ return /^https?:\/\//i.test(u); }
+function must(v, name){ if(!v) throw new Error(`${name} は必須です`); }
+function getNextId(arr){
+  const max = arr.reduce((m, it)=> typeof it.id === 'number' ? Math.max(m, it.id) : m, 0);
+  return max + 1;
+}
+function pretty(x){ return JSON.stringify(x, null, 2); }
+function download(name, content){
+  const blob = new Blob([content], {type:'application/json'});
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: name });
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* ======= ユーティリティ ======= */
+function escapeHtml(s){ return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function escapeAttr(s){ return escapeHtml(s).replace(/"/g, '&quot;'); }
+function getVal(id){ return document.getElementById(id).value.trim(); }
+function setMsg(text, kind){
+  msg.className = 'muted ' + (kind || '');
+  msg.textContent = text || '';
+}
+</script>

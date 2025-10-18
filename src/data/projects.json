@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "title": "Sabacan365.com",
+    "description": "AI-powered English learning platform featuring YouTube-based listening quizzes, interactive vocabulary reviews, and personalized progress tracking for learners worldwide.",
+    "image": "/assets/sabacan365.jpg",
+    "tags": ["Jamstack", "Tailwind CSS", "Next.js", "Google Sheets API", "Firebase", "OpenAI API"],
+    "demoUrl": "https://www.sabacan365.com/",
+    "githubUrl": "https://github.com/Masashi064/english-quiz-site"
+  },
+  {
+    "id": 2,
+    "title": "Investment Withdrawal Optimizer (NISA & Taxable Accounts)",
+    "description": "The tool simulates tax-efficient withdrawals between NISA and taxable accounts, helping investors maximize returns, minimize taxes, and extend portfolio longevity through smart strategy visualization.",
+    "image": "/assets/nisa.jpg",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "demoUrl": "https://nisa-simulator-nine.vercel.app/",
+    "githubUrl": "https://github.com/Masashi064/nisa-simulator"
+  },
+  {
+    "id": 3,
+    "title": "Book Recommender",
+    "description": "Built with HTML, Tailwind CSS, and Supabase — a real-time, login-free book recommendation app featuring community submissions, smart suggestions, and animated UI design.",
+    "image": "/assets/boook.jpg",
+    "tags": ["HTML", "Tailwind CSS", "Supabase"],
+    "demoUrl": "https://boook-delta.vercel.app/",
+    "githubUrl": "https://github.com/Masashi064/boook"
+  },
+  {
+    "id": 4,
+    "title": "Bucket List Generator",
+    "description": "A simple and fun web app that helps users generate unique bucket list ideas and explore ideas shared by others.",
+    "image": "/assets/bucketlist.jpg",
+    "tags": ["HTML", "CSS", "JavaScript", "Google Apps Script"],
+    "demoUrl": "https://bucketlist-generator.vercel.app/",
+    "githubUrl": "https://github.com/Masashi064/bucketlist-generator"
+  },
+  {
+    "id": 5,
+    "title": "Profit Estimator",
+    "description": "A clean, responsive web app that lets users easily calculate the relationship between return rate, profit, and selling price. Supports both yen and man-yen units, manual calculation mode, and CSV export for precise investment planning.",
+    "image": "/assets/profit-estimator.jpg",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "demoUrl": "https://profit-estimator.vercel.app/",
+    "githubUrl": "https://github.com/Masashi064/profit-estimator"
+  },
+  { "id": 6,
+    "title": "“Tough-love” Post Critique Mini App",
+    "description": "Paste text or an X (Twitter) post URL and get a snarky, tough-love review generated via OpenAI—served by a tiny FastAPI backend with a static front page.",
+    "image": "/assets/hanamochi.jpg",
+    "tags": ["FastAPI", "Python", "Render", "OpenAI API", "HTML", "CSS","JavaScript"],
+    "demoUrl": "https://hanamochi.onrender.com/",
+    "githubUrl": "https://github.com/Masashi064/hanamochi"
+  }
+]

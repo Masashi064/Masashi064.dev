@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import projects from '../data/projects.json';
 
 interface Project {
   id: number;
@@ -14,45 +15,6 @@ interface Project {
 
 export default function Projects() {
   const { t } = useTranslation();
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: 'Sabacan365.com',
-      description: 'AI-powered English learning platform featuring YouTube-based listening quizzes, interactive vocabulary reviews, and personalized progress tracking for learners worldwide.',
-      image: '/assets/sabacan365.jpg',
-      tags: ['Jamstack','Tailwind CSS','Next.js','Google Sheets API', 'Firebase', 'OpenAI API'],
-      demoUrl: 'https://www.sabacan365.com/',
-      githubUrl: 'https://github.com/Masashi064/english-quiz-site'
-    },
-    {
-      id: 2,
-      title: 'Investment Withdrawal Optimizer (NISA & Taxable Accounts)',
-      description: 'The tool simulates tax-efficient withdrawals between NISA and taxable accounts, helping investors maximize returns, minimize taxes, and extend portfolio longevity through smart strategy visualization.',
-      image: '/assets/nisa.jpg',
-      tags: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://nisa-simulator-nine.vercel.app/',
-      githubUrl: 'https://github.com/Masashi064/nisa-simulator'
-    },
-    {
-      id: 3,
-      title: 'Book Recommender',
-      description: 'Built with HTML, Tailwind CSS, and Supabase — a real-time, login-free book recommendation app featuring community submissions, smart suggestions, and animated UI design.',
-      image: '/assets/boook.jpg',
-      tags: ['HTML', 'Tailwind CSS', 'Supabase'],
-      demoUrl: 'https://boook-delta.vercel.app/',
-      githubUrl: 'https://github.com/Masashi064/boook'
-    },
-    {
-      id: 4,
-      title: 'Bucket List Generator',
-      description: 'A simple and fun web app that helps users generate unique bucket list ideas and explore ideas shared by others.',
-      image: 'assets/bucketlist.jpg',
-      tags: ['HTML', 'CSS', 'JavaScript', 'Google App Script'],
-      demoUrl: 'https://bucketlist-generator.vercel.app/',
-      githubUrl: 'https://github.com/Masashi064/bucketlist-generator'
-    }
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
