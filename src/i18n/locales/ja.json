@@ -7,15 +7,15 @@
   },
   "hero": {
     "greeting": "こんにちは、私は",
-    "name": "Masashi",
-    "title": "フルスタック開発者 & クリエイティブデザイナー",
+    "name": "Masashi(ぺとり)",
+    "title": "趣味でWebアプリを作る人",
     "description": "React／TypeScript、Next.js／Vite、Firebase／Supabase、OpenAI を活用して、高速な AI 対応の Web アプリを開発するフルスタックエンジニア",
     "cta": "作品を見る",
     "contact": "お問い合わせ"
   },
   "projects": {
     "title": "注目プロジェクト",
-    "subtitle": "最新の作品とクリエイティブなソリューション",
+    "subtitle": "最新の作品と個性的な発想",
     "viewProject": "プロジェクトを見る",
     "liveDemo": "ライブデモ",
     "sourceCode": "ソースコード"

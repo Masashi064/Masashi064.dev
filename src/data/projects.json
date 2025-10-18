@@ -1,55 +1,76 @@
-[
-  {
-    "id": 1,
-    "title": "Sabacan365.com",
-    "description": "AI-powered English learning platform featuring YouTube-based listening quizzes, interactive vocabulary reviews, and personalized progress tracking for learners worldwide.",
-    "image": "/assets/sabacan365.jpg",
-    "tags": ["Jamstack", "Tailwind CSS", "Next.js", "Google Sheets API", "Firebase", "OpenAI API"],
-    "demoUrl": "https://www.sabacan365.com/",
-    "githubUrl": "https://github.com/Masashi064/english-quiz-site"
-  },
-  {
-    "id": 2,
-    "title": "Investment Withdrawal Optimizer (NISA & Taxable Accounts)",
-    "description": "The tool simulates tax-efficient withdrawals between NISA and taxable accounts, helping investors maximize returns, minimize taxes, and extend portfolio longevity through smart strategy visualization.",
-    "image": "/assets/nisa.jpg",
-    "tags": ["HTML", "CSS", "JavaScript"],
-    "demoUrl": "https://nisa-simulator-nine.vercel.app/",
-    "githubUrl": "https://github.com/Masashi064/nisa-simulator"
-  },
-  {
-    "id": 3,
-    "title": "Book Recommender",
-    "description": "Built with HTML, Tailwind CSS, and Supabase — a real-time, login-free book recommendation app featuring community submissions, smart suggestions, and animated UI design.",
-    "image": "/assets/boook.jpg",
-    "tags": ["HTML", "Tailwind CSS", "Supabase"],
-    "demoUrl": "https://boook-delta.vercel.app/",
-    "githubUrl": "https://github.com/Masashi064/boook"
-  },
-  {
-    "id": 4,
-    "title": "Bucket List Generator",
-    "description": "A simple and fun web app that helps users generate unique bucket list ideas and explore ideas shared by others.",
-    "image": "/assets/bucketlist.jpg",
-    "tags": ["HTML", "CSS", "JavaScript", "Google Apps Script"],
-    "demoUrl": "https://bucketlist-generator.vercel.app/",
-    "githubUrl": "https://github.com/Masashi064/bucketlist-generator"
-  },
-  {
-    "id": 5,
-    "title": "Profit Estimator",
-    "description": "A clean, responsive web app that lets users easily calculate the relationship between return rate, profit, and selling price. Supports both yen and man-yen units, manual calculation mode, and CSV export for precise investment planning.",
-    "image": "/assets/profit-estimator.jpg",
-    "tags": ["HTML", "CSS", "JavaScript"],
-    "demoUrl": "https://profit-estimator.vercel.app/",
-    "githubUrl": "https://github.com/Masashi064/profit-estimator"
-  },
-  { "id": 6,
-    "title": "“Tough-love” Post Critique Mini App",
-    "description": "Paste text or an X (Twitter) post URL and get a snarky, tough-love review generated via OpenAI—served by a tiny FastAPI backend with a static front page.",
-    "image": "/assets/hanamochi.jpg",
-    "tags": ["FastAPI", "Python", "Render", "OpenAI API", "HTML", "CSS","JavaScript"],
-    "demoUrl": "https://hanamochi.onrender.com/",
-    "githubUrl": "https://github.com/Masashi064/hanamochi"
-  }
-]
+{
+  "projects": [
+    {
+      "id": 1,
+      "image": "/assets/sabacan365.jpg",
+      "demoUrl": "https://www.sabacan365.com/",
+      "githubUrl": "https://github.com/Masashi064/english-quiz-site",
+      "title": { "en": "Sabacan365.com", "ja": "Sabacan365.com" },
+      "description": {
+        "en": "AI-powered English learning platform featuring YouTube-based listening quizzes, interactive vocabulary reviews, and personalized progress tracking for learners worldwide.",
+        "ja": "YouTubeベースのリスニングクイズ、対話的な単語復習、学習進捗の可視化を備えたAI英語学習プラットフォーム。世界中の学習者に対応します。"
+      },
+      "tags": ["Jamstack", "Tailwind CSS", "Next.js", "Google Sheets API", "Firebase", "OpenAI API"]
+    },
+    {
+      "id": 2,
+      "image": "/assets/nisa.jpg",
+      "demoUrl": "https://nisa-simulator-nine.vercel.app/",
+      "githubUrl": "https://github.com/Masashi064/nisa-simulator",
+      "title": { "en": "Investment Withdrawal Optimizer (NISA & Taxable Accounts)", "ja": "NISA ⇄ 特定口座 取り崩しシミュレーター" },
+      "description": {
+        "en": "The tool simulates tax-efficient withdrawals between NISA and taxable accounts, helping investors maximize returns, minimize taxes, and extend portfolio longevity through smart strategy visualization.",
+        "ja": "NISAと課税口座の最適な取り崩し順序をシミュレーションし、税負担の最小化・リターン最大化・資産寿命の延長を可視化で支援するツール。"
+      },
+      "tags": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "id": 3,
+      "image": "/assets/boook.jpg",
+      "demoUrl": "https://boook-delta.vercel.app/",
+      "githubUrl": "https://github.com/Masashi064/boook",
+      "title": { "en": "Book Recommender", "ja": "みんなの本紹介" },
+      "description": {
+        "en": "Built with HTML, Tailwind CSS, and Supabase — a real-time, login-free book recommendation app featuring community submissions, smart suggestions, and animated UI design.",
+        "ja": "HTML・Tailwind CSS・Supabase製。ログイン不要・リアルタイムの書籍推薦アプリ。コミュニティ投稿、スマート提案、アニメーションUIを搭載。"
+      },
+      "tags": ["HTML", "Tailwind CSS", "Supabase"]
+    },
+    {
+      "id": 4,
+      "image": "/assets/bucketlist.jpg",
+      "demoUrl": "https://bucketlist-generator.vercel.app/",
+      "githubUrl": "https://github.com/Masashi064/bucketlist-generator",
+      "title": { "en": "Bucket List Generator", "ja": "バケットリスト ジェネレーター" },
+      "description": {
+        "en": "A simple and fun web app that helps users generate unique bucket list ideas and explore ideas shared by others.",
+        "ja": "ユニークなバケットリストのアイデアを生成し、他のユーザーが共有したアイデアも閲覧できる、シンプルで楽しいWebアプリ。"
+      },
+      "tags": ["HTML", "CSS", "JavaScript", "Google Apps Script"]
+    },
+    {
+      "id": 5,
+      "image": "/assets/profit-estimator.jpg",
+      "demoUrl": "https://profit-estimator.vercel.app/",
+      "githubUrl": "https://github.com/Masashi064/profit-estimator",
+      "title": { "en": "Profit Estimator", "ja": "利益・損出し計算機" },
+      "description": {
+        "en": "A clean, responsive web app that lets users easily calculate the relationship between return rate, profit, and selling price. Supports both yen and man-yen units, manual calculation mode, and CSV export for precise investment planning.",
+        "ja": "利回り・利益・売却額の関係をかんたんに試算できるクリーンでレスポンシブなWebアプリ。円／万円の単位切替、手動計算モード、CSV出力に対応し、精密な投資計画を支援。"
+      },
+      "tags":["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "id": 6,
+      "image": "/assets/hanamochi.jpg",
+      "demoUrl": "https://hanamochi.onrender.com/",
+      "githubUrl": "https://github.com/Masashi064/hanamochi",
+      "title": { "en": "“ Hanamochi” Post Critique Mini App", "ja": "“Hanamochi” 投稿辛口レビュー・ミニアプリ" },
+      "description": {
+        "en": "Paste text or an X (Twitter) post URL and get a snarky, tough-love review generated via OpenAI—served by a tiny FastAPI backend with a static front page.",
+        "ja": "テキストまたはX（Twitter）の投稿URLを貼り付けると、OpenAIが辛口の“愛のムチ”レビューを生成。静的フロント＋小さなFastAPIバックエンドで提供。"
+      },
+      "tags": ["FastAPI", "Python", "Render", "OpenAI API", "HTML", "CSS", "JavaScript"]
+    }
+  ]
+}
