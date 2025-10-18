@@ -23,7 +23,7 @@ export default function Hero() {
               {t('hero.greeting')}
             </p>
             <img
-              src="/profile.jpg"
+              src="/baree-hiyoko.gif"
               alt="My photo"
               className="w-24 h-24 rounded-full mx-auto mt-10 border-4 border-gray-300 shadow-lg object-cover"
             />
